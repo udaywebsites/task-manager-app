@@ -25,7 +25,6 @@ const Login = () => {
     e.preventDefault();
     setError('');
 
-    // Client-side validation
     if (!formData.email || !formData.password) {
       setError('Please fill in all fields');
       return;

@@ -12,7 +12,6 @@ const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
   
-  // Filter states
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [priorityFilter, setPriorityFilter] = useState('all');
@@ -44,7 +43,6 @@ const Dashboard = () => {
   const filterAndSortTasks = () => {
     let filtered = [...tasks];
 
-    // Search filter
     if (searchQuery) {
       filtered = filtered.filter(task =>
         task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -52,17 +50,14 @@ const Dashboard = () => {
       );
     }
 
-    // Status filter
     if (statusFilter !== 'all') {
       filtered = filtered.filter(task => task.status === statusFilter);
     }
 
-    // Priority filter
     if (priorityFilter !== 'all') {
       filtered = filtered.filter(task => task.priority === priorityFilter);
     }
 
-    // Sort
     filtered.sort((a, b) => {
       let aValue = a[sortBy];
       let bValue = b[sortBy];
@@ -108,10 +103,8 @@ const Dashboard = () => {
 
   const handleTaskSaved = (savedTask) => {
     if (editingTask) {
-      // Update existing task
       setTasks(tasks.map(task => task._id === savedTask._id ? savedTask : task));
     } else {
-      // Add new task
       setTasks([savedTask, ...tasks]);
     }
     setIsModalOpen(false);
@@ -133,13 +126,11 @@ const Dashboard = () => {
       <Navbar />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">My Tasks</h1>
           <p className="text-gray-600">Manage and organize your tasks efficiently</p>
         </div>
 
-        {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <div className="card bg-gradient-to-br from-blue-500 to-blue-600 text-white">
             <div className="text-sm font-medium opacity-90">Total Tasks</div>
@@ -159,10 +150,8 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Filters and Create Button */}
         <div className="card mb-6">
           <div className="flex flex-col lg:flex-row gap-4">
-            {/* Search */}
             <div className="flex-1">
               <input
                 type="text"
@@ -173,7 +162,6 @@ const Dashboard = () => {
               />
             </div>
 
-            {/* Status Filter */}
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
@@ -185,7 +173,6 @@ const Dashboard = () => {
               <option value="completed">Completed</option>
             </select>
 
-            {/* Priority Filter */}
             <select
               value={priorityFilter}
               onChange={(e) => setPriorityFilter(e.target.value)}
@@ -197,7 +184,6 @@ const Dashboard = () => {
               <option value="high">High</option>
             </select>
 
-            {/* Sort */}
             <select
               value={`${sortBy}-${sortOrder}`}
               onChange={(e) => {
@@ -215,21 +201,18 @@ const Dashboard = () => {
               <option value="priority-asc">Priority (Low-High)</option>
             </select>
 
-            {/* Create Button */}
             <button onClick={handleCreateTask} className="btn-primary whitespace-nowrap">
               + New Task
             </button>
           </div>
         </div>
 
-        {/* Error Message */}
         {error && (
           <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
             {error}
           </div>
         )}
 
-        {/* Tasks List */}
         {loading ? (
           <div className="text-center py-12">
             <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-primary-500 border-t-transparent"></div>
@@ -262,7 +245,6 @@ const Dashboard = () => {
         )}
       </div>
 
-      {/* Task Modal */}
       {isModalOpen && (
         <TaskModal
           task={editingTask}

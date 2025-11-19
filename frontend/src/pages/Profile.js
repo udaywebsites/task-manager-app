@@ -38,7 +38,6 @@ const Profile = () => {
     setError('');
     setSuccess('');
 
-    // Client-side validation
     if (!formData.name) {
       setError('Name is required');
       return;
@@ -83,7 +82,6 @@ const Profile = () => {
         </div>
 
         <div className="card">
-          {/* Avatar Display */}
           <div className="flex justify-center mb-6">
             <div className="relative">
               {formData.avatar ? (
@@ -104,14 +102,12 @@ const Profile = () => {
             </div>
           </div>
 
-          {/* Success Message */}
           {success && (
             <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-4">
               {success}
             </div>
           )}
 
-          {/* Error Message */}
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
               {error}
@@ -119,7 +115,6 @@ const Profile = () => {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Email (Read-only) */}
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                 Email Address
@@ -134,7 +129,6 @@ const Profile = () => {
               <p className="text-xs text-gray-500 mt-1">Email cannot be changed</p>
             </div>
 
-            {/* Name */}
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                 Full Name <span className="text-red-500">*</span>
@@ -155,7 +149,6 @@ const Profile = () => {
               </p>
             </div>
 
-            {/* Bio */}
             <div>
               <label htmlFor="bio" className="block text-sm font-medium text-gray-700 mb-1">
                 Bio
@@ -175,7 +168,6 @@ const Profile = () => {
               </p>
             </div>
 
-            {/* Avatar URL */}
             <div>
               <label htmlFor="avatar" className="block text-sm font-medium text-gray-700 mb-1">
                 Avatar URL
@@ -194,7 +186,6 @@ const Profile = () => {
               </p>
             </div>
 
-            {/* Account Info */}
             <div className="pt-4 border-t border-gray-200">
               <h3 className="text-sm font-medium text-gray-700 mb-2">Account Information</h3>
               <div className="text-sm text-gray-600">
@@ -202,7 +193,6 @@ const Profile = () => {
               </div>
             </div>
 
-            {/* Buttons */}
             <div className="flex gap-4">
               <button
                 type="submit"

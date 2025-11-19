@@ -5,10 +5,8 @@ const { protect } = require('../middleware/auth');
 
 const router = express.Router();
 
-// All routes are protected
 router.use(protect);
 
-// Validation middleware
 const taskValidation = [
   body('title').trim().notEmpty().withMessage('Title is required')
     .isLength({ max: 100 }).withMessage('Title cannot exceed 100 characters'),
@@ -18,14 +16,10 @@ const taskValidation = [
   body('dueDate').optional().isISO8601().withMessage('Invalid date format')
 ];
 
-// @route   GET /api/tasks
-// @desc    Get all tasks for logged-in user with filters and search
-// @access  Private
 router.get('/', async (req, res) => {
   try {
     const { status, priority, search, sortBy = 'createdAt', order = 'desc' } = req.query;
 
-    // Build query
     const query = { user: req.user._id };
 
     if (status) {
@@ -43,7 +37,6 @@ router.get('/', async (req, res) => {
       ];
     }
 
-    // Build sort object
     const sortOrder = order === 'asc' ? 1 : -1;
     const sort = { [sortBy]: sortOrder };
 
@@ -65,9 +58,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// @route   GET /api/tasks/:id
-// @desc    Get single task
-// @access  Private
 router.get('/:id', async (req, res) => {
   try {
     const task = await Task.findById(req.params.id);
@@ -79,7 +69,6 @@ router.get('/:id', async (req, res) => {
       });
     }
 
-    // Check if task belongs to user
     if (task.user.toString() !== req.user._id.toString()) {
       return res.status(403).json({
         status: 'error',
@@ -108,12 +97,8 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// @route   POST /api/tasks
-// @desc    Create new task
-// @access  Private
 router.post('/', taskValidation, async (req, res) => {
   try {
-    // Check validation errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({
@@ -151,12 +136,8 @@ router.post('/', taskValidation, async (req, res) => {
   }
 });
 
-// @route   PUT /api/tasks/:id
-// @desc    Update task
-// @access  Private
 router.put('/:id', taskValidation, async (req, res) => {
   try {
-    // Check validation errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({
@@ -175,7 +156,6 @@ router.put('/:id', taskValidation, async (req, res) => {
       });
     }
 
-    // Check if task belongs to user
     if (task.user.toString() !== req.user._id.toString()) {
       return res.status(403).json({
         status: 'error',
@@ -216,9 +196,6 @@ router.put('/:id', taskValidation, async (req, res) => {
   }
 });
 
-// @route   DELETE /api/tasks/:id
-// @desc    Delete task
-// @access  Private
 router.delete('/:id', async (req, res) => {
   try {
     const task = await Task.findById(req.params.id);
@@ -230,7 +207,6 @@ router.delete('/:id', async (req, res) => {
       });
     }
 
-    // Check if task belongs to user
     if (task.user.toString() !== req.user._id.toString()) {
       return res.status(403).json({
         status: 'error',

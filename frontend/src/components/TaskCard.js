@@ -39,7 +39,6 @@ const TaskCard = ({ task, onEdit, onDelete }) => {
 
   return (
     <div className="card hover:shadow-lg transition-shadow border border-gray-200">
-      {/* Header */}
       <div className="flex justify-between items-start mb-3">
         <h3 className="text-lg font-semibold text-gray-900 flex-1 pr-2">
           {task.title}
@@ -66,14 +65,12 @@ const TaskCard = ({ task, onEdit, onDelete }) => {
         </div>
       </div>
 
-      {/* Description */}
       {task.description && (
         <p className="text-gray-600 text-sm mb-4 line-clamp-3">
           {task.description}
         </p>
       )}
 
-      {/* Tags */}
       {task.tags && task.tags.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-4">
           {task.tags.map((tag, index) => (
@@ -87,7 +84,6 @@ const TaskCard = ({ task, onEdit, onDelete }) => {
         </div>
       )}
 
-      {/* Status and Priority Badges */}
       <div className="flex gap-2 mb-4">
         <span className={`px-3 py-1 text-xs font-medium rounded-full border ${getStatusColor(task.status)}`}>
           {task.status.replace('-', ' ').toUpperCase()}
@@ -97,7 +93,6 @@ const TaskCard = ({ task, onEdit, onDelete }) => {
         </span>
       </div>
 
-      {/* Due Date */}
       {task.dueDate && (
         <div className="flex items-center text-sm text-gray-600 mb-2">
           <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -107,7 +102,6 @@ const TaskCard = ({ task, onEdit, onDelete }) => {
         </div>
       )}
 
-      {/* Footer */}
       <div className="text-xs text-gray-500 pt-3 border-t border-gray-100">
         Created: {formatDate(task.createdAt)}
       </div>

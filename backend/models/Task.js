@@ -46,13 +46,11 @@ const taskSchema = new mongoose.Schema({
   }
 });
 
-// Update the updatedAt field before saving
 taskSchema.pre('save', function(next) {
   this.updatedAt = Date.now();
   next();
 });
 
-// Index for better query performance
 taskSchema.index({ user: 1, status: 1 });
 taskSchema.index({ user: 1, createdAt: -1 });
 

@@ -38,7 +38,6 @@ const TaskModal = ({ task, onClose, onSave }) => {
     e.preventDefault();
     setError('');
 
-    // Client-side validation
     if (!formData.title.trim()) {
       setError('Title is required');
       return;
@@ -70,10 +69,8 @@ const TaskModal = ({ task, onClose, onSave }) => {
 
       let response;
       if (task) {
-        // Update existing task
         response = await api.put(`/tasks/${task._id}`, payload);
       } else {
-        // Create new task
         response = await api.post('/tasks', payload);
       }
 
@@ -89,7 +86,6 @@ const TaskModal = ({ task, onClose, onSave }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         <div className="p-6">
-          {/* Header */}
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold text-gray-900">
               {task ? 'Edit Task' : 'Create New Task'}
@@ -104,16 +100,13 @@ const TaskModal = ({ task, onClose, onSave }) => {
             </button>
           </div>
 
-          {/* Error Message */}
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
               {error}
             </div>
           )}
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Title */}
             <div>
               <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
                 Title <span className="text-red-500">*</span>
@@ -134,7 +127,6 @@ const TaskModal = ({ task, onClose, onSave }) => {
               </p>
             </div>
 
-            {/* Description */}
             <div>
               <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
                 Description
@@ -154,7 +146,6 @@ const TaskModal = ({ task, onClose, onSave }) => {
               </p>
             </div>
 
-            {/* Status and Priority */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label htmlFor="status" className="block text-sm font-medium text-gray-700 mb-1">
@@ -191,7 +182,6 @@ const TaskModal = ({ task, onClose, onSave }) => {
               </div>
             </div>
 
-            {/* Due Date */}
             <div>
               <label htmlFor="dueDate" className="block text-sm font-medium text-gray-700 mb-1">
                 Due Date
@@ -207,7 +197,6 @@ const TaskModal = ({ task, onClose, onSave }) => {
               />
             </div>
 
-            {/* Tags */}
             <div>
               <label htmlFor="tags" className="block text-sm font-medium text-gray-700 mb-1">
                 Tags
@@ -226,7 +215,6 @@ const TaskModal = ({ task, onClose, onSave }) => {
               </p>
             </div>
 
-            {/* Buttons */}
             <div className="flex gap-4 pt-4">
               <button
                 type="submit"
